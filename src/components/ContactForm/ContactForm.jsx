@@ -37,13 +37,13 @@ export const ContactForm = ({ onSubmit }) => {
           <label htmlFor="name" className={s.label}>
             Name
           </label>
-          <Field type="text" name="name" className={s.input} />
+          <Field type="text" id="name" name="name" className={s.input} />
           <ErrorMessage name="name" component="div" className={s.error} />
 
           <label htmlFor="number" className={s.label}>
             Number
           </label>
-          <Field type="text" name="number" className={s.input} />
+          <Field type="text" id="number" name="number" className={s.input} />
           <ErrorMessage name="number" component="div" className={s.error} />
 
           <button type="submit" className={s.button} disabled={isSubmitting}>
