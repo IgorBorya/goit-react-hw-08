@@ -1,0 +1,31 @@
+ul {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+li {
+  list-style-type: none;
+  gap: 40px;
+  display: inline;
+  border: 1px solid black;
+  padding: 8px;
+}
+
+button {
+  padding: 5px;
+  border-radius: 0px;
+  margin: unset;
+}
+
+.contactList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.contactItem {
+  width: 250px;
+  height: 60px;
+}
