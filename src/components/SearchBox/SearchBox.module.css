@@ -1,6 +1,8 @@
 .searchBox {
   margin-bottom: 20px;
   display: flex;
+  flex-direction: column;
+  text-align: left;
 }
 
 .input {

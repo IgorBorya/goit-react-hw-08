@@ -1,11 +1,9 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import { Contact } from "./components/Contact/Contact";
 import { ContactForm } from "./components/ContactForm/ContactForm";
 import { ContactList } from "./components/ContactList/ContactList";
 import { SearchBox } from "./components/SearchBox/SearchBox";
+import "./App.css";
+
 function App() {
   const [contacts, setContacts] = useState([
     { id: "id-1", name: "Rosie Simpson", number: "459-12-56" },
@@ -14,15 +12,39 @@ function App() {
     { id: "id-4", name: "Annie Copeland", number: "227-91-26" },
   ]);
 
+  const [filter, setFilter] = useState("");
+
+  // Додаємо новий контакт
+  const addContact = (newContact) => {
+    setContacts((prevContacts) => [...prevContacts, newContact]);
+  };
+
+  // Оновлюємо значення фільтру
+  const handleFilterChange = (event) => {
+    setFilter(event.target.value);
+  };
+
+  // Фільтруємо контакти за ім'ям
+  const getFilteredContacts = () => {
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
+  };
+
   return (
-    <>
-      <div>
-        <h1>Phonebook</h1>
-        <ContactForm />
-        <SearchBox />
-        <ContactList contacts={contacts} />
-      </div>
-    </>
+    <div className="App">
+      <h1>Phonebook</h1>
+
+      {/* Компонент форми для додавання контактів */}
+      <ContactForm onSubmit={addContact} />
+
+      {/* Поле пошуку */}
+      <SearchBox filter={filter} onChange={handleFilterChange} />
+
+      {/* Список відфільтрованих контактів */}
+      <ContactList contacts={getFilteredContacts()} />
+    </div>
   );
 }
 
