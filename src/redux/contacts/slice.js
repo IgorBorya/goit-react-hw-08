@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchContacts, addContact, deleteContact } from "./operations";
+import { logOut } from "../auth/operations"; // Додано для очищення контактів при виході
 
 const initialState = {
   items: [],
@@ -31,6 +32,10 @@ const contactsSlice = createSlice({
         state.items = state.items.filter(
           (contact) => contact.id !== action.payload
         );
+      })
+      // Очищення контактів при logout
+      .addCase(logOut.fulfilled, (state) => {
+        state.items = [];
       });
   },
 });
