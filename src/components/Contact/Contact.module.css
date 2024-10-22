@@ -1,21 +1,15 @@
-.contactItem {
+.contact {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
 }
 
-.contactName {
-  margin: 0;
-  margin-bottom: 5px;
-}
-
-.contactNumber {
-  margin: 0;
-}
-
-.contactWrap {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 10px;
-  margin-right: auto;
+button {
+  background-color: #e84a5f;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
 }

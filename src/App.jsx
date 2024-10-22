@@ -1,26 +1,48 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchContacts } from "./redux/contactsOps";
-import { ContactForm } from "./components/ContactForm/ContactForm";
-import { ContactList } from "./components/ContactList/ContactList";
-import { SearchBox } from "./components/SearchBox/SearchBox";
-import "./App.css";
+import { Suspense, lazy } from "react";
+import { Routes, Route } from "react-router-dom";
+import { Layout } from "./components/Layout/Layout";
+import { PrivateRoute } from "./routes/PrivateRoute";
+import { RestrictedRoute } from "./routes/RestrictedRoute";
 
-function App() {
-  const dispatch = useDispatch();
+const HomePage = lazy(() => import("./pages/HomePage"));
+const LoginPage = lazy(() => import("./pages/LoginPage"));
+const RegisterPage = lazy(() => import("./pages/RegisterPage"));
+const ContactsPage = lazy(() => import("./pages/ContactsPage"));
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
+const App = () => {
   return (
-    <div className="App">
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <SearchBox />
-      <ContactList />
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute
+                redirectTo="/contacts"
+                component={<RegisterPage />}
+              />
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute
+                redirectTo="/contacts"
+                component={<LoginPage />}
+              />
+            }
+          />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
+            }
+          />
+        </Route>
+      </Routes>
+    </Suspense>
   );
-}
+};
 
 export default App;
